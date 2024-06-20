@@ -61,7 +61,7 @@ const product = () => {
       <Button text="Add to cart" onPress={addToCart} />
     </View>
   );
-};
+}; 
 
 export default product;
 
