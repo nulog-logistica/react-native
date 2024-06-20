@@ -1,13 +1,15 @@
-import FontAwesome from "@expo/vector-icons/FontAwesome";
 import {
   DarkTheme,
   DefaultTheme,
   ThemeProvider,
 } from "@react-navigation/native";
-import { useFonts } from "expo-font";
 import { SplashScreen, Stack } from "expo-router";
-import { useEffect } from "react";
+
+import CartProvider from "../providers/CartProvider";
+import FontAwesome from "@expo/vector-icons/FontAwesome";
 import { useColorScheme } from "react-native";
+import { useEffect } from "react";
+import { useFonts } from "expo-font";
 
 export {
   // Catch any errors thrown by the Layout component.
@@ -51,10 +53,12 @@ function RootLayoutNav() {
 
   return (
     <ThemeProvider value={colorScheme === "dark" ? DarkTheme : DefaultTheme}>
-      <Stack>
-        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-        <Stack.Screen name="cart" options={{ presentation: "modal" }} />
-      </Stack>
+      <CartProvider>
+        <Stack>
+          <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+          <Stack.Screen name="cart" options={{ presentation: "modal" }} />
+        </Stack>
+      </CartProvider>
     </ThemeProvider>
   );
 }
