@@ -1,21 +1,45 @@
-import { StyleSheet, Text, View } from 'react-native'
+import { StyleSheet, Text, TextInput, View } from "react-native";
 
-import React from 'react'
+import Button from "@/src/components/Button";
+import React from "react";
 
-const CreateProduct = () => {
+const CreateProductScreen = () => {
+  const onCreate = () => {};
+
   return (
     <View style={styles.container}>
-      <Text>create</Text>
-    </View>
-  )
-}
+      <Text style={styles.label}>Name</Text>
+      <TextInput placeholder="Name" style={styles.input} />
 
-export default CreateProduct
+      <Text style={styles.label}>Price ($)</Text>
+      <TextInput
+        placeholder="9.99"
+        style={styles.input}
+        keyboardType="numeric"
+      />
+
+      <Button text="Create" onPress={onCreate} />
+    </View>
+  );
+};
+
+export default CreateProductScreen;
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
-    padding: 10
-  }
-})
+    justifyContent: "center",
+    padding: 10,
+  },
+  input: {
+    backgroundColor: "white",
+    padding: 10,
+    borderRadius: 5,
+    marginTop: 5,
+    marginBottom: 20,
+  },
+  label: {
+    color: "gray",
+    fontSize: 16,
+  },
+});
