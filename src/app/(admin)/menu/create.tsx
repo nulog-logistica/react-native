@@ -1,7 +1,7 @@
 import * as ImagePicker from "expo-image-picker";
 
 import { Alert, Image, StyleSheet, Text, TextInput, View } from "react-native";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Stack, useLocalSearchParams } from "expo-router";
 
 import Button from "@/src/components/Button";
@@ -14,9 +14,20 @@ const CreateProductScreen = () => {
   const [price, setPrice] = useState("");
   const [errors, setErrors] = useState("");
   const [image, setImage] = useState<null | string>(null);
-
   const { id } = useLocalSearchParams();
   const isUpdating = !!id;
+
+  useEffect(() => {
+    if (isUpdating) {
+      const product = products.find((product) => product.id.toString() === id);
+
+      if (product) {
+        setName(product.name);
+        setPrice(product.price.toString());
+        setImage(product.image);
+      }
+    }
+  }, []);
 
   const pickImage = async () => {
     let result = await ImagePicker.launchImageLibraryAsync({
@@ -83,13 +94,13 @@ const CreateProductScreen = () => {
   const confirmDelete = () => {
     Alert.alert("Confirm", "Are you sure you want to delete this product?", [
       {
-        text: "Cancel"
+        text: "Cancel",
       },
       {
         text: "Delete",
-        style: 'destructive',
-        onPress: onDelete
-      }
+        style: "destructive",
+        onPress: onDelete,
+      },
     ]);
   };
 
