@@ -1,9 +1,10 @@
-import { Link, Tabs } from "expo-router";
+import { Link, Redirect, Tabs } from "expo-router";
 
 import Colors from "@/src/constants/Colors";
 import FontAwesome from "@expo/vector-icons/FontAwesome";
 import { Pressable } from "react-native";
 import React from "react";
+import { useAuth } from "@/src/providers/AuthProvider";
 import { useClientOnlyValue } from "@/src/components/useClientOnlyValue";
 import { useColorScheme } from "@/src/components/useColorScheme";
 
@@ -17,6 +18,9 @@ function TabBarIcon(props: {
 
 export default function TabLayout() {
   const colorScheme = useColorScheme();
+  const { session } = useAuth();
+
+  if (!session) return <Redirect href={"/"} />;
 
   return (
     <Tabs
